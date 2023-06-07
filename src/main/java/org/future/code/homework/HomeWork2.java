@@ -47,7 +47,7 @@ public class HomeWork2 {
         Matcher mb = Pattern.compile(".*\\d+.*").matcher(login);
         Matcher mc = Pattern.compile(".*[a-z]+.*").matcher(login);
         Matcher md = Pattern.compile(".*[_]+.*").matcher(login);
-        if(m.matches() && ma.matches() && mb.matches() && mc.matches() && md.matches())
+        if(m.matches() && ma.matches() && mb.matches() && mc.matches() && md.matches() && login.length() <= 20)
         {
             return true;
         }
@@ -72,7 +72,8 @@ public class HomeWork2 {
 
     public static Boolean isLoginValid(String login) {
         //Место для Вашего кода из пункта 3
-        try{
+        try
+        {
             validateLogin(login);
         }
         catch(LoginValidationException ex)

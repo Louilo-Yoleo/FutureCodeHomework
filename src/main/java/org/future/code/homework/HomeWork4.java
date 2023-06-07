@@ -2,9 +2,9 @@ package org.future.code.homework;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.ShardingKey;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -40,11 +40,26 @@ public class HomeWork4 {
 
     public static List<String> correctedList(List<String> stringList) {
         // Место для Вашего кода задания №1
-        return Collections.emptyList();
+        ArrayList<String> lowkeyList = new ArrayList<String>();
+        for (String listWord : stringList)
+        {
+            if (listWord.toLowerCase().equals(listWord))
+            {
+                lowkeyList.add(listWord);
+            }
+        }
+        return lowkeyList;
     }
     public static HashMap<String, Integer> magSort(HashMap<String, Integer> shopCart) {
         // Место для Вашего кода задания №2
-        return shopCart;
+        HashMap<String, Integer> sortedCart = new HashMap<String, Integer>(shopCart);
+        for (String item : shopCart.keySet()) {
+            if (sortedCart.get(item) > 300)
+            {
+                sortedCart.remove(item);
+            }
+        }
+        return sortedCart;
     }
 
     public static void main(String[] args) {

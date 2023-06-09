@@ -2,6 +2,7 @@ package org.future.code.homework;
 
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.*;
 
 public class HomeWork6 {
     /*
@@ -39,22 +40,93 @@ public class HomeWork6 {
 
     public interface Playable {
         // Напиши здесь свою реализацию интерфейса Playable
+        List<String> play();
+//        List<String> platWith(Playable playable);
+
     }
 
-    public static abstract class Instrument {
+    public static abstract class Instrument implements Playable {
         // Напиши здесь свою реализацию класса Instrument
+        private String sound;
+        private int times;
+        public Instrument(String sound, int times){
+            this.sound = sound;
+            this.times = times;
+        }
+        public String getSound() {
+            return sound;
+        }
+        public int getTimes() {
+            return times;
+        }
+        public void setSound(String sound) {
+            this.sound = sound;
+        }
+        public void setTimes(int times) {
+            this.times = times;
+        }
+        public List<String> play(){
+            List<String> soundLine = new ArrayList<String>();
+            String sounds = "";
+            for (int time = 0; time < times; time++){
+                sounds += sound + " ";
+
+            }
+            sounds = sounds.substring(0, sounds.length() - 1);
+            soundLine.add(0, sounds);
+            return soundLine;
+
+        }
+        public List<String> playWith(Playable playable){
+            List<String> soundLine = play();
+            soundLine.add(1, playable.play().get(0));
+            return soundLine;
+
+        }
+
     }
 
-    public static class Guitar {
-        // Напиши здесь свою реализацию класса Instrument
+    public static class Guitar extends Instrument {
+        public Guitar() {
+            super("Трунь", 2);
+        }
+
+
     }
 
-    public static class Drum {
-        // Напиши здесь свою реализацию класса Instrument
+    public static class Drum extends Instrument {
+        public Drum() {
+            super("Бац", 3);
+
+        }
     }
 
     public static class Orchestra {
         // Напиши здесь свою реализацию класса Orchestra
+        private List<Instrument> instruments = new ArrayList<Instrument>();
+        public List<Instrument> getInstruments() {
+            return instruments;
+        }
+
+        public Orchestra(Instrument ... instrument) {
+            for (int i = 0; i < instrument.length; i++){
+                this.instruments.add(i, instrument[i]);
+
+            }
+        }
+        public List<String> play(){
+            List<String> soundLines = new ArrayList<String>();
+            for (int i = 0; i < instruments.toArray().length; i++){
+                soundLines.add(i, instruments.get(i).play().get(0));
+            }
+            return soundLines;
+        }
+        public List<String> playWith(Playable playable) {
+            List<String> soundLine = play();
+            soundLine.add(playable.play().get(0));
+            return soundLine;
+        }
+
     }
 
     public static void main(String[] args) {

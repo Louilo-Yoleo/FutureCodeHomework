@@ -1,5 +1,8 @@
 package org.future.code.homework;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -38,13 +41,42 @@ public class HomeWork2 {
      *     - если метод validateLogin выбросил ошибку - вернуть false
      */
 
-    public static void validateLogin(String login) {
-        //Место для Вашего кода из пункта 2
+    static class LoginValidationException extends Exception {
+        public LoginValidationException() {}
+
+        public LoginValidationException(String message)
+        {
+            super(message);
+        }
     }
 
-    public static Boolean isLoginValid(String login) {
+
+    public static void validateLogin(String login) throws LoginValidationException{
+        //Место для Вашего кода из пункта 2
+        Pattern pattern = Pattern.compile("[A-Z]+[a-z]+[0-9]+_|[0-9]+[A-Z]+[a-z]+_|[a-z][A-Z]+[0-9]|[A-Z]+[a-z]+_+.[0-9]", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(login);
+        boolean matchFound = matcher.find();
+        if(matchFound && login.length() <= 20)
+        {
+            return;
+        }
+        else
+        {
+            throw new LoginValidationException();
+        }
+    }
+
+    public static Boolean isLoginValid(String login)
+    {
         //Место для Вашего кода из пункта 3
-        return false;
+        try{
+            validateLogin(login);
+        }
+        catch(LoginValidationException ex)
+        {
+            return false;
+        }
+        return true;
     }
 
     /*
@@ -140,7 +172,6 @@ public class HomeWork2 {
         if (Objects.equals(exp, act)) System.out.print("✅"); else System.out.print("❌");
         System.out.println();
     }
-
 }
 
 

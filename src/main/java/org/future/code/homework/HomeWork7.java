@@ -2,11 +2,8 @@ package org.future.code.homework;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -26,7 +23,8 @@ public class HomeWork7 {
      */
     public static List<String> methodOne(List<String> names) {
         // Твой код здесь
-        return Collections.emptyList();
+        return names.stream().filter(x -> x.contains("King"))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -34,7 +32,8 @@ public class HomeWork7 {
      */
     public static List<String> methodTwo(List<String> names) {
         // Твой код здесь
-        return Collections.emptyList();
+        return names.stream().map(name -> name.split(" ")[1])
+                .distinct().collect(Collectors.toList());
     }
 
     /**
@@ -42,7 +41,9 @@ public class HomeWork7 {
      */
     public static List<String> methodThree(List<String> names) {
         // Твой код здесь
-        return Collections.emptyList();
+        return names.stream().map(x -> x.split(" ")[0])
+                .filter(x -> x.contains("L"))
+                .distinct().collect(Collectors.toList());
     }
 
     /**
@@ -50,7 +51,9 @@ public class HomeWork7 {
      */
     public static List<String> methodFour(List<String> names) {
         // Твой код здесь
-        return Collections.emptyList();
+        return names.stream().map(name -> name.split(" ")[1])
+                .filter(x -> x.contains("W"))
+                .distinct().sorted().collect(Collectors.toList());
     }
 
     /**
@@ -58,7 +61,9 @@ public class HomeWork7 {
      */
     public static Integer methodFive(List<String> names) {
         // Твой код здесь
-        return 0;
+        return names.stream().map(name -> name.split(" ")[0])
+                .filter(x-> x.length() > 6)
+                .distinct().collect(Collectors.toList()).size();
     }
 
     /**
@@ -67,7 +72,9 @@ public class HomeWork7 {
      */
     public static Integer methodSix(List<String> names) {
         // Твой код здесь
-        return 0;
+        return names.stream().flatMap(x -> Arrays.stream(x.split(" ")))
+                .filter(x -> x.toString().length() > 5)
+                .distinct().collect(Collectors.toList()).size();
     }
 
     /**
@@ -76,7 +83,11 @@ public class HomeWork7 {
      */
     public static List<String> methodSeven(List<String> names) {
         // Твой код здесь
-        return Collections.emptyList();
+        return names.stream().filter(x -> x.split(" ")[1].contains("K") || x.split(" ")[1]
+                        .contains("S"))
+                .sorted().map(x -> x.split(" ")[0] + " " + x
+                        .split(" ")[1].substring(0, 1) + ".")
+                .distinct().collect(Collectors.toList());
     }
 
     public static void main(String[] args) {

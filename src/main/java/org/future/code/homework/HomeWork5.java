@@ -32,7 +32,7 @@ public class HomeWork5 {
        Метод(Переопределить) announce - возвращает строку в формате Mage + вызов метода announce у родителя
        Метод(Переопределить) takeDamage - вычитает урон из здоровья персонажа
             по формуле health - (damage - protection - health % 10) (Случайный баф)
-            !!! Метод должен вызывать метод takeDamage super-класса
+            !!! Метод должен вызывать метод takeDamage super-класса   ???
        Метод - Integer fireBall() - фаербол наносит 45 урона
 
    Реализовать класс «Archer»
@@ -42,7 +42,7 @@ public class HomeWork5 {
        Метод(Переопределить) announce - возвращает строку в формате Archer + вызов метода announce у родителя
        Метод(Переопределить) takeDamage - вычитает урон из здоровья персонажа
             по формуле health - (damage - protection + health % 10) (Случайный дебаф)
-            !!! Метод должен вызывать метод takeDamage super-класса
+            !!! Метод должен вызывать метод takeDamage super-класса   ???
        Метод - Integer shootBow() - стрельба из лука наносит 40 + health % 10 урона
     */
 
@@ -51,17 +51,195 @@ public class HomeWork5 {
             super(message);
         }
     }
+    /*
 
+
+
+
+
+
+
+
+
+
+
+     */
     public static class Person {
         // Напиши здесь свою реализацию класса Person
-    }
 
+        private String name;
+        private int protection;
+        private int health;
+
+        public Person(String name) {
+            this.name = name;
+            this.protection = 0;
+            this.health = 50;
+        }
+
+        public Person() {
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getProtection() {
+            return protection;
+        }
+
+        public int getHealth() {
+            return health;
+        }
+
+        public int facePunch() {
+            return 1;
+        }
+
+        public String announce() {
+            return "Person " + name + " имеет характеристики: " + health + " здоровья и " + protection + " защиты";
+        }
+
+        public void takeDamage(int damage) throws Exception {
+            if (damage - protection > 0) {
+                health -= (damage - protection );
+            } else {
+                throw new Exception();
+            }
+            if (health <= 0) {
+                health = 0;
+                throw new PersonDead("0");
+            }
+
+
+        }
+    }
+    /*
+
+
+
+
+
+
+
+
+
+
+
+     */
     public static class Mage extends Person{
-        // Напиши здесь свою реализацию класса Mage (не забудь про наследование от Person)
-    }
 
-    public static class Archer extends Person{
+        public Mage(String name) {
+            super.name = name;
+            super.protection = 15;
+            super.health = 100;
+        }
+
+        public Mage() {
+        }
+
+        public String getName() {
+            return super.name;
+        }
+
+        public void setName(String name) {
+            super.name = name;
+        }
+
+        public int getProtection() {
+            return super.protection;
+        }
+
+        public int getHealth() {
+            return super.health;
+        }
+        @Override
+        public String announce() {
+            return "Mage" + super.announce();
+        }
+
+        public int fireBall() {
+            return 45;
+        }
+
+        public void takeDamage(int damage) throws Exception {
+            if (damage - super.protection > 0) {
+                super.health -= (damage - super.protection - super.health % 10);
+            } else {
+                throw new Exception();
+            }
+            if (super.health <= 0) {
+                super.health = 0;
+                throw new PersonDead("0");
+            }
+
+
+        }
+    }
+    /*
+
+
+
+
+
+
+
+
+     */
+    public static class Archer extends Person {
         // Напиши здесь свою реализацию класса Archer (не забудь про наследование от Person)
+
+        public Archer(String name) {
+            super.name = name;
+            super.protection = 12;
+            super.health = 120;
+        }
+
+        public Archer() {
+        }
+
+        public String getName() {
+            return super.name;
+        }
+
+        public void setName(String name) {
+            super.name = name;
+        }
+
+        public int getProtection() {
+            return super.protection;
+        }
+
+        public int getHealth() {
+            return super.health;
+        }
+
+        public int shootBow() {
+            return 40 + super.health % 10;
+        }
+        @Override
+        public String announce() {
+            return "Archer " + super.announce();
+        }
+
+        public void takeDamage(int damage) throws Exception {
+            if (damage - super.protection > 0) {
+                super.health -= (damage - super.protection + super.health % 10);
+            } else {
+                throw new Exception();
+            }
+            if (super.health <= 0) {
+                super.health = 0;
+                throw new PersonDead("0");
+            }
+
+
+        }
+
     }
 
     /*
@@ -167,6 +345,7 @@ public class HomeWork5 {
 
     private static class ANSIColor {
         public Map<String, String> ansiColors = new HashMap<>();
+
         {
             ansiColors.put("reset", "\u001B[0m");
             ansiColors.put("black", "\u001B[30m");
